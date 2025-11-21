@@ -1,10 +1,16 @@
 import "dotenv/config";
 import Fastify from 'fastify';
-import usersRoutes from "./src/routes/users.js";
+import cors from "@fastify/cors";
 import {pool} from "./src/db.js";
+import usersRoutes from "./src/routes/users.js";
+import commentsRoutes from "./src/routes/comments.js";
 
 const fastify = Fastify({
     logger: true
+});
+
+fastify.register(cors, {
+    origin: (process.env.CORS_ORIGIN === "true")
 });
 
 fastify.addHook("onClose", async () => {
@@ -12,15 +18,11 @@ fastify.addHook("onClose", async () => {
 });
 
 fastify.get('/', async (request, reply) => {
-    return "Hello world!";
-});
-
-fastify.post('/review', async (req, reply) => {
-    const body = req.body; // { user: "...", pass: "..." }
-    return { ok: true, data: body };
+    return "Welcome to lucors webpage api!";
 });
 
 fastify.register(usersRoutes);
+fastify.register(commentsRoutes);
 
 fastify.listen({ port: Number(process.env.API_PORT), }, (err, address) => {
     if (err) {

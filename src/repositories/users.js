@@ -6,6 +6,7 @@ export async function getAllUsers() {
         FROM users
         ORDER BY user_id;
     `);
+
     return rows;
 }
 
@@ -18,5 +19,6 @@ export async function getAdmins() {
     `,
         [true]
     );
+
     return rows;
 }
