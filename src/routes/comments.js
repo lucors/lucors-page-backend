@@ -1,8 +1,16 @@
-import {createComment, getAllComments} from "../repositories/comments.js";
+import {createComment, getAllComments, getAllModeratedComments, moderateComment} from "../repositories/comments.js";
 
 export default async function commentsRoutes(fastify, opts) {
     fastify.get("/comments", async (req, reply) => {
         return await getAllComments();
+    });
+
+    fastify.get("/comments/moderated", async (req, reply) => {
+        return await getAllModeratedComments();
+    });
+
+    fastify.post("/comments/:id/moderate", async (req, reply) => {
+        return await moderateComment(req.params.id);
     });
 
     fastify.post("/comments", async (req, reply) => {
