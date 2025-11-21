@@ -6,7 +6,8 @@ import usersRoutes from "./src/routes/users.js";
 import commentsRoutes from "./src/routes/comments.js";
 
 const fastify = Fastify({
-    logger: true
+    ignoreTrailingSlash: true,
+    logger: true,
 });
 
 fastify.register(cors, {
