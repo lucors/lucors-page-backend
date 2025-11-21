@@ -21,6 +21,8 @@ fastify.get('/', async (request, reply) => {
     return "Welcome to lucors webpage api!";
 });
 
+fastify.get("/health", async () => ({ ok: true }));
+
 fastify.register(usersRoutes);
 fastify.register(commentsRoutes);
 
