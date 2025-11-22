@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16
+    restart: always
+    env_file: .env
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 3s
+      timeout: 2s
+      retries: 3
+    volumes:
+      - .:/app:delegated
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app:delegated
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      postgres:
+        condition: service_healthy

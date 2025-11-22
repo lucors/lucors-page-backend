@@ -1,4 +1,8 @@
-CREATE TABLE users (
+CREATE DATABASE dev;
+
+\c dev;
+
+CREATE TABLE IF NOT EXISTS users (
     user_id SERIAL primary key,
     login VARCHAR(100) NOT NULL,
     name VARCHAR(200) NOT NULL,
@@ -6,7 +10,7 @@ CREATE TABLE users (
     is_admin BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE comments (
+CREATE TABLE IF NOT EXISTS comments (
     comment_id SERIAL primary key,
     name        VARCHAR(100),
     content     TEXT NOT NULL,
