@@ -4,6 +4,7 @@ import cors from "@fastify/cors";
 import {pool} from "./src/db.js";
 import usersRoutes from "./src/routes/users.js";
 import commentsRoutes from "./src/routes/comments.js";
+import authPlugin from "./src/middleware/auth.js";
 
 const fastify = Fastify({
     ignoreTrailingSlash: true,
